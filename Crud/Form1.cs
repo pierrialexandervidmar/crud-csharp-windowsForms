@@ -57,11 +57,28 @@ namespace Crud
             {
                 MessageBox.Show("Por favor, preencha todos os campos antes de salvar.", "Campos Vazios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            acoesCancelarSalvar();
+            LimparCampos();
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            tsbNovo.Enabled = true;
+            tsbSalvar.Enabled = false;
+            tsbEditar.Enabled = false;
+            tsbCancelar.Enabled = false;
+            tsbExcluir.Enabled = false;
+            tsbPesquisar.Enabled = true;
+            txtId.Enabled = false;
+            txtNome.Enabled = false;
+            txtEndereco.Enabled = false;
+            mskCep.Enabled = false;
+            txtBairro.Enabled = false;
+            txtCidade.Enabled = false;
+            txtUf.Enabled = false;
+            mskTelefone.Enabled = false;
         }
 
         private void tsbPesquisar_Click(object sender, EventArgs e)
@@ -107,6 +124,21 @@ namespace Crud
             {
                 con.Close();
             }
+
+            tsbNovo.Enabled = false;
+            tsbSalvar.Enabled = false;
+            tsbEditar.Enabled = true;
+            tsbCancelar.Enabled = true;
+            tsbExcluir.Enabled = false;
+            tsbPesquisar.Enabled = false;
+            txtId.Enabled = false;
+            txtNome.Enabled = true;
+            txtEndereco.Enabled = true;
+            mskCep.Enabled = true;
+            txtBairro.Enabled = true;
+            txtCidade.Enabled = true;
+            txtUf.Enabled = true;
+            mskTelefone.Enabled = true;
 
         }
 
@@ -198,6 +230,7 @@ namespace Crud
             txtCidade.Text = "";
             txtUf.Text = "";
             mskTelefone.Text = "";
+            tstIdBuscar.Text = "";
         }
 
         private bool CamposEstaoPreenchidos()
@@ -218,6 +251,49 @@ namespace Crud
             return true; // Retorna true se todos os campos estiverem preenchidos
         }
 
+        private void tsbNovo_Click(object sender, EventArgs e)
+        {
+            tsbNovo.Enabled = false;
+            tsbSalvar.Enabled = true;
+            tsbEditar.Enabled = false;
+            tsbCancelar.Enabled = true;
+            tsbExcluir.Enabled = false;
+            tsbPesquisar.Enabled = false;
+            txtId.Enabled = false;
+            txtNome.Enabled = true;
+            txtEndereco.Enabled = true;
+            mskCep.Enabled = true;
+            txtBairro.Enabled = true;
+            txtCidade.Enabled = true;
+            txtUf.Enabled = true;
+            mskTelefone.Enabled = true;
+            tstIdBuscar.Enabled = false;
+        }
 
+        private void tsbCancelar_Click(object sender, EventArgs e)
+        {
+            acoesCancelarSalvar();
+        }
+
+        private void acoesCancelarSalvar()
+        {
+            LimparCampos();
+
+            tsbNovo.Enabled = true;
+            tsbSalvar.Enabled = false;
+            tsbEditar.Enabled = false;
+            tsbCancelar.Enabled = false;
+            tsbExcluir.Enabled = false;
+            tsbPesquisar.Enabled = true;
+            txtId.Enabled = false;
+            txtNome.Enabled = false;
+            txtEndereco.Enabled = false;
+            mskCep.Enabled = false;
+            txtBairro.Enabled = false;
+            txtCidade.Enabled = false;
+            txtUf.Enabled = false;
+            mskTelefone.Enabled = false;
+            tstIdBuscar.Enabled = true;
+        }
     }
 }
