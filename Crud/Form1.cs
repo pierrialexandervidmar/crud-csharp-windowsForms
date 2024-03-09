@@ -53,43 +53,12 @@ namespace Crud
                 {
                     con.Close();
                 }
-            }
-            else 
+            } else
             {
                 MessageBox.Show("Por favor, preencha todos os campos antes de salvar.", "Campos Vazios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        
-
-        private void LimparCampos()
-        {
-            txtNome.Text = "";
-            txtEndereco.Text = "";
-            mskCep.Text = "";
-            txtBairro.Text = "";
-            txtCidade.Text = "";
-            txtUf.Text = "";
-            mskTelefone.Text = "";
-        }
-
-        private bool CamposEstaoPreenchidos()
-        {
-            string cepSemMascara = new string(mskCep.Text.Where(char.IsDigit).ToArray());
-            string telefoneSemMascara = new string(mskTelefone.Text.Where(char.IsDigit).ToArray());
-
-            if (string.IsNullOrWhiteSpace(txtNome.Text) ||
-                string.IsNullOrWhiteSpace(txtEndereco.Text) ||
-                string.IsNullOrWhiteSpace(cepSemMascara) ||
-                string.IsNullOrWhiteSpace(txtBairro.Text) ||
-                string.IsNullOrWhiteSpace(txtCidade.Text) ||
-                string.IsNullOrWhiteSpace(txtUf.Text) ||
-                string.IsNullOrWhiteSpace(telefoneSemMascara))
-            {
-                return false; // Retorna false se algum campo estiver vazio
-            }
-            return true; // Retorna true se todos os campos estiverem preenchidos
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -99,7 +68,7 @@ namespace Crud
         {
             strSql = "SELECT * FROM Funcionarios WHERE Id=@Id";
             var comando = new MySqlCommand(strSql, con);
-            
+
             comando.Parameters.Add("@Id", MySqlDbType.Int32).Value = tstIdBuscar.Text;
 
 
@@ -130,8 +99,7 @@ namespace Crud
                 txtCidade.Text = Convert.ToString(dr["Cidade"]);
                 txtUf.Text = Convert.ToString(dr["UF"]);
                 mskTelefone.Text = Convert.ToString(dr["Telefone"]);
-            } 
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message);
                 con.Close();
@@ -141,5 +109,115 @@ namespace Crud
             }
 
         }
+
+        private void tsbEditar_Click(object sender, EventArgs e)
+        {
+            if (CamposEstaoPreenchidos())
+            {
+                strSql = "UPDATE Funcionarios SET Nome = @Nome, Endereco = @Endereco, CEP = @CEP, Bairro = @Bairro, Cidade = @Cidade, UF = @UF, Telefone = @Telefone WHERE id = @IdBuscar";
+                var comando = new MySqlCommand(strSql, con);
+
+                comando.Parameters.Add("@IdBuscar", MySqlDbType.Int32).Value = tstIdBuscar.Text;
+
+                comando.Parameters.Add("@Nome", MySqlDbType.VarString).Value = txtNome.Text;
+                comando.Parameters.Add("@Endereco", MySqlDbType.VarString).Value = txtEndereco.Text;
+                comando.Parameters.Add("@CEP", MySqlDbType.VarString).Value = mskCep.Text;
+                comando.Parameters.Add("@Bairro", MySqlDbType.VarString).Value = txtBairro.Text;
+                comando.Parameters.Add("@Cidade", MySqlDbType.VarString).Value = txtCidade.Text;
+                comando.Parameters.Add("@UF", MySqlDbType.VarString).Value = txtUf.Text;
+                comando.Parameters.Add("@Telefone", MySqlDbType.VarString).Value = mskTelefone.Text;
+
+                try
+                {
+                    con.Open();
+                    comando.ExecuteNonQuery();
+                    LimparCampos();
+                    MessageBox.Show("Atualização realizada com sucesso!");
+
+                } catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao conectar no banco de dados: " + ex.Message);
+                    con.Close();
+                } finally
+                {
+                    con.Close();
+                }
+            } else
+            {
+                MessageBox.Show("Por favor, preencha todos os campos antes de salvar.", "Campos Vazios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void tsbExcluir_Click(object sender, EventArgs e)
+        {
+            if (CamposEstaoPreenchidos() || txtId.Text != "")
+            {
+                if (MessageBox.Show("Deseja realmente excluir este funcionário?", "Atenção",
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                                MessageBoxDefaultButton.Button2) == DialogResult.No)
+                {
+                    MessageBox.Show("Operação Cancelada");
+
+                } else
+                {
+                    strSql = "DELETE FROM Funcionarios WHERE Id=@Id";
+                    var comando = new MySqlCommand(strSql, con);
+
+                    comando.Parameters.Add("@Id", MySqlDbType.Int32).Value = tstIdBuscar.Text;
+
+                    try
+                    {
+                        con.Open();
+                        comando.ExecuteNonQuery();
+                        LimparCampos();
+                        MessageBox.Show("Exclusão realizada com sucesso!");
+
+                    } catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao conectar no banco de dados: " + ex.Message);
+                        con.Close();
+                    } finally
+                    {
+                        con.Close();
+                    }
+                }
+            } else
+            {
+                MessageBox.Show("Por favor, consulte antes para que preencha todos os campos antes de excluir.", "Campos Vazios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+        private void LimparCampos()
+        {
+            txtId.Text = "";
+            txtNome.Text = "";
+            txtEndereco.Text = "";
+            mskCep.Text = "";
+            txtBairro.Text = "";
+            txtCidade.Text = "";
+            txtUf.Text = "";
+            mskTelefone.Text = "";
+        }
+
+        private bool CamposEstaoPreenchidos()
+        {
+            string cepSemMascara = new string(mskCep.Text.Where(char.IsDigit).ToArray());
+            string telefoneSemMascara = new string(mskTelefone.Text.Where(char.IsDigit).ToArray());
+
+            if (string.IsNullOrWhiteSpace(txtNome.Text) ||
+                string.IsNullOrWhiteSpace(txtEndereco.Text) ||
+                string.IsNullOrWhiteSpace(cepSemMascara) ||
+                string.IsNullOrWhiteSpace(txtBairro.Text) ||
+                string.IsNullOrWhiteSpace(txtCidade.Text) ||
+                string.IsNullOrWhiteSpace(txtUf.Text) ||
+                string.IsNullOrWhiteSpace(telefoneSemMascara))
+            {
+                return false; // Retorna false se algum campo estiver vazio
+            }
+            return true; // Retorna true se todos os campos estiverem preenchidos
+        }
+
+
     }
 }
