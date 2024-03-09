@@ -39,8 +39,6 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tstIdBuscar = new System.Windows.Forms.ToolStripTextBox();
             this.tsbPesquisar = new System.Windows.Forms.ToolStripButton();
-            this.lblId = new System.Windows.Forms.Label();
-            this.txtId = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.txtEndereco = new System.Windows.Forms.TextBox();
             this.txtBairro = new System.Windows.Forms.TextBox();
@@ -55,6 +53,8 @@
             this.lblTelefone = new System.Windows.Forms.Label();
             this.mskTelefone = new System.Windows.Forms.MaskedTextBox();
             this.mskCep = new System.Windows.Forms.MaskedTextBox();
+            this.txtId = new System.Windows.Forms.TextBox();
+            this.lblId = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,25 +148,7 @@
             this.tsbPesquisar.Name = "tsbPesquisar";
             this.tsbPesquisar.Size = new System.Drawing.Size(23, 22);
             this.tsbPesquisar.Text = "Pesquisar";
-            // 
-            // lblId
-            // 
-            this.lblId.AutoSize = true;
-            this.lblId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblId.Location = new System.Drawing.Point(34, 48);
-            this.lblId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblId.Name = "lblId";
-            this.lblId.Size = new System.Drawing.Size(19, 17);
-            this.lblId.TabIndex = 1;
-            this.lblId.Text = "Id";
-            // 
-            // txtId
-            // 
-            this.txtId.Location = new System.Drawing.Point(34, 72);
-            this.txtId.Margin = new System.Windows.Forms.Padding(4);
-            this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(125, 23);
-            this.txtId.TabIndex = 2;
+            this.tsbPesquisar.Click += new System.EventHandler(this.tsbPesquisar_Click);
             // 
             // txtNome
             // 
@@ -299,6 +281,25 @@
             this.mskCep.Size = new System.Drawing.Size(126, 23);
             this.mskCep.TabIndex = 18;
             // 
+            // txtId
+            // 
+            this.txtId.Location = new System.Drawing.Point(34, 72);
+            this.txtId.Margin = new System.Windows.Forms.Padding(4);
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(125, 23);
+            this.txtId.TabIndex = 2;
+            // 
+            // lblId
+            // 
+            this.lblId.AutoSize = true;
+            this.lblId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblId.Location = new System.Drawing.Point(34, 48);
+            this.lblId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblId.Name = "lblId";
+            this.lblId.Size = new System.Drawing.Size(19, 17);
+            this.lblId.TabIndex = 1;
+            this.lblId.Text = "Id";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -346,8 +347,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox tstIdBuscar;
         private System.Windows.Forms.ToolStripButton tsbPesquisar;
-        private System.Windows.Forms.Label lblId;
-        private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.TextBox txtEndereco;
         private System.Windows.Forms.TextBox txtBairro;
@@ -362,6 +361,8 @@
         private System.Windows.Forms.Label lblTelefone;
         private System.Windows.Forms.MaskedTextBox mskTelefone;
         private System.Windows.Forms.MaskedTextBox mskCep;
+        private System.Windows.Forms.TextBox txtId;
+        private System.Windows.Forms.Label lblId;
     }
 }
 

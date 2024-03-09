@@ -60,6 +60,8 @@ namespace Crud
             }
         }
 
+        
+
         private void LimparCampos()
         {
             txtNome.Text = "";
@@ -91,6 +93,53 @@ namespace Crud
 
         private void Form1_Load(object sender, EventArgs e)
         {
+        }
+
+        private void tsbPesquisar_Click(object sender, EventArgs e)
+        {
+            strSql = "SELECT * FROM Funcionarios WHERE Id=@Id";
+            var comando = new MySqlCommand(strSql, con);
+            
+            comando.Parameters.Add("@Id", MySqlDbType.Int32).Value = tstIdBuscar.Text;
+
+
+            try
+            {
+
+                if (tstIdBuscar.Text == string.Empty)
+                {
+                    throw new Exception("Digite um Id");
+                }
+
+                con.Open();
+
+                MySqlDataReader dr = comando.ExecuteReader();
+
+                if (dr.HasRows == false)
+                {
+                    throw new Exception("Id não cadastrado");
+                }
+
+                dr.Read();
+
+                txtId.Text = Convert.ToString(dr["id"]);
+                txtNome.Text = Convert.ToString(dr["Nome"]);
+                txtEndereco.Text = Convert.ToString(dr["Endereco"]);
+                mskCep.Text = Convert.ToString(dr["CEP"]);
+                txtBairro.Text = Convert.ToString(dr["Bairro"]);
+                txtCidade.Text = Convert.ToString(dr["Cidade"]);
+                txtUf.Text = Convert.ToString(dr["UF"]);
+                mskTelefone.Text = Convert.ToString(dr["Telefone"]);
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                con.Close();
+            } finally
+            {
+                con.Close();
+            }
+
         }
     }
 }
